@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ODC Corporate Affairs — Stakeholder Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A1628;--navy-mid:#0F2040;--navy-soft:#162a4a;
+  --gold:#C4963A;--gold-lt:#F0D89A;--gold-pale:rgba(196,150,58,0.12);
+  --bg:#F0F2F7;--surface:#FFFFFF;--surface-2:#F7F8FC;
+  --text:#0A1628;--text-secondary:#4A5568;--text-muted:#8C96A8;
+  --border:rgba(10,22,40,0.08);--border-strong:rgba(10,22,40,0.14);
+  --green:#0D7A55;--green-lt:#E6F7F2;--green-bd:rgba(13,122,85,0.2);
+  --red:#C0392B;--red-lt:#FEF1EF;--red-bd:rgba(192,57,43,0.2);
+  --amber:#B07D2A;--amber-lt:#FDF6E3;
+  --shadow-sm:0 1px 3px rgba(10,22,40,0.06),0 1px 2px rgba(10,22,40,0.04);
+  --shadow-md:0 4px 16px rgba(10,22,40,0.08),0 2px 6px rgba(10,22,40,0.04);
+  --shadow-lg:0 12px 40px rgba(10,22,40,0.12),0 4px 12px rgba(10,22,40,0.06);
+  --r:16px;--rs:10px;--r-sm:8px;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* WRAP */
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px 96px}
+
+/* HEADER */
+.hdr{
+  background:var(--navy);
+  border-radius:20px;
+  padding:52px 40px 44px;
+  margin-bottom:28px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg)
+}
+.hdr-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 110% 40%,rgba(196,150,58,0.14) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at -10% 80%,rgba(196,150,58,0.07) 0%,transparent 60%)}
+.hdr-content{position:relative;z-index:1}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(196,150,58,0.15);
+  border:1px solid rgba(196,150,58,0.3);
+  color:var(--gold);
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:6px 16px;border-radius:40px;margin-bottom:20px
+}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(0.8)}}
+.hdr h1{
+  font-family:var(--font-display);
+  color:#fff;font-size:28px;font-weight:400;
+  margin-bottom:10px;line-height:1.25;letter-spacing:-.2px
+}
+.hdr-sub{color:rgba(255,255,255,0.4);font-size:12px;font-weight:400;letter-spacing:.3px}
+.hdr-line{width:40px;height:1.5px;background:linear-gradient(90deg,var(--gold),transparent);margin:20px 0 0;border-radius:2px}
+
+/* PROGRESS */
+.pw{
+  background:var(--surface);border-radius:var(--rs);
+  padding:18px 22px;margin-bottom:20px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm)
+}
+.ptop{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.plbl{font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.ppct{font-size:12px;font-weight:700;color:var(--navy)}
+.pbar{height:3px;background:var(--border);border-radius:10px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--gold),#E8B85A);border-radius:10px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.dots{display:flex;gap:4px;margin-top:10px}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border);transition:all .3s}
+.dot.done{background:var(--navy)}.dot.active{background:var(--gold);width:16px;border-radius:10px}
+
+/* CARDS */
+.card{
+  background:var(--surface);border-radius:var(--r);
+  padding:32px;margin-bottom:16px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  animation:cardIn .3s cubic-bezier(.4,0,.2,1)
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.slbl{
+  font-size:9.5px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:6px
+}
+.stitle{
+  font-family:var(--font-display);
+  font-size:20px;font-weight:400;color:var(--navy);
+  margin-bottom:6px;line-height:1.3;letter-spacing:-.1px
+}
+.sdesc{font-size:12.5px;color:var(--text-secondary);margin-bottom:24px;line-height:1.75}
+.divl{height:1px;background:var(--border);margin:18px 0}
+
+/* QUESTIONS */
+.qb{margin-bottom:20px}
+.qt{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:12px;line-height:1.55}
+.qn{color:var(--gold);margin-right:5px;font-weight:700}
+.req-star{color:var(--red);margin-left:2px}
+
+/* VALIDATION */
+.em{display:none;font-size:10.5px;color:var(--red);font-weight:500;margin-top:6px;padding:6px 10px;background:var(--red-lt);border-radius:6px;border:1px solid var(--red-bd)}
+.field-err .em{display:block}
+.field-err .rw,.field-err .aw,.field-err .csel{border:1.5px solid var(--red)!important;border-radius:var(--rs)!important;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.vban{display:none;background:var(--red-lt);border:1px solid var(--red-bd);border-radius:var(--r-sm);padding:12px 18px;margin-bottom:16px;font-size:11px;font-weight:600;color:var(--red);text-align:center;letter-spacing:.1px}
+.vban.show{display:block;animation:cardIn .2s ease}
+
+/* RADIO OPTIONS */
+.rw{display:flex;flex-direction:column;gap:6px;padding:2px 0}
+.ro{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  border:1.5px solid var(--border);border-radius:var(--rs);
+  cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1);
+  user-select:none;background:var(--surface)
+}
+.ro:hover{border-color:rgba(10,22,40,0.2);background:var(--surface-2);transform:translateX(2px)}
+.ro.sel{border-color:var(--navy);background:var(--navy);transform:translateX(2px)}
+.rnum{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--surface-2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--navy);
+  flex-shrink:0;transition:all .18s;border:1px solid var(--border)
+}
+.ro.sel .rnum{background:rgba(196,150,58,0.2);border-color:rgba(196,150,58,0.4);color:var(--gold)}
+.rlbl{font-size:12px;font-weight:600;color:var(--text-secondary);transition:color .18s}
+.ro.sel .rlbl{color:rgba(255,255,255,0.9)}
+.r-scale{display:flex;justify-content:space-between;margin-top:5px;padding:0 2px}
+.rs-lbl{font-size:9.5px;color:var(--text-muted);font-weight:500;letter-spacing:.3px}
+
+/* AGREE OPTIONS */
+.aw{display:flex;gap:5px}
+.ao{
+  flex:1;min-width:0;padding:12px 6px;
+  border:1.5px solid var(--border);border-radius:var(--rs);
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;transition:all .18s;text-align:center;background:var(--surface)
+}
+.ao:hover{border-color:rgba(10,22,40,0.2);background:var(--surface-2)}
+.ao.sel{border-color:var(--navy);background:var(--navy)}
+.anum{font-size:15px;font-weight:700;color:var(--text-secondary);transition:color .18s}
+.albl{font-size:8px;font-weight:600;color:var(--text-muted);line-height:1.3;transition:color .18s;letter-spacing:.2px}
+.ao.sel .anum,.ao.sel .albl{color:#fff}
+
+/* NPS */
+.ngrid{display:flex;gap:4px;flex-wrap:wrap}
+.npo{
+  min-width:44px;flex:1;padding:10px 4px;
+  border:1.5px solid var(--border);border-radius:var(--rs);
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;transition:all .18s;text-align:center;background:var(--surface)
+}
+.npo:hover{border-color:rgba(10,22,40,0.2);background:var(--surface-2);transform:translateY(-2px)}
+.npo.sel{transform:translateY(-2px)}
+.npo.sel.det{background:#C0392B;border-color:#C0392B}
+.npo.sel.pas{background:#B07D2A;border-color:#B07D2A}
+.npo.sel.pro{background:#0D7A55;border-color:#0D7A55}
+.nnum{font-size:14px;font-weight:700;color:var(--text-secondary)}
+.nlbl{font-size:7.5px;font-weight:600;color:var(--text-muted);line-height:1.2}
+.npo.sel .nnum,.npo.sel .nlbl{color:#fff}
+.nkey{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.nk{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-secondary);font-weight:500}
+.kdot{width:8px;height:8px;border-radius:2px}
+
+/* TEXTAREA */
+textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:var(--rs);
+  padding:12px 14px;font-family:var(--font-body);font-size:12.5px;
+  color:var(--text);resize:vertical;min-height:84px;outline:none;
+  transition:all .18s;background:var(--surface);line-height:1.6
+}
+textarea:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(10,22,40,0.06)}
+textarea::placeholder{color:var(--text-muted)}
+
+/* SELECT */
+.csel{
+  position:relative;border:1.5px solid var(--border);border-radius:var(--rs);
+  background:var(--surface);transition:all .18s
+}
+.csel:hover{border-color:rgba(10,22,40,0.2)}
+.csel:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(10,22,40,0.06)}
+.csel select{
+  width:100%;padding:12px 36px 12px 14px;border:none;outline:none;
+  background:transparent;font-family:var(--font-body);
+  font-size:12.5px;font-weight:500;color:var(--text);cursor:pointer;appearance:none
+}
+.csel::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:13px;pointer-events:none}
+
+/* CHECKBOXES */
+.cgrp{display:flex;flex-direction:column;gap:6px}
+.ci{
+  display:flex;align-items:center;gap:12px;padding:11px 14px;
+  border:1.5px solid var(--border);border-radius:var(--r-sm);
+  cursor:pointer;transition:all .18s;background:var(--surface)
+}
+.ci:hover{border-color:rgba(10,22,40,0.2);background:var(--surface-2)}
+.ci.sel{border-color:var(--navy);background:rgba(10,22,40,0.03)}
+.cb{width:17px;height:17px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.ci.sel .cb{background:var(--navy);border-color:var(--navy)}
+.csvg{width:9px;height:9px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round}
+.clbl{font-size:12px;font-weight:500;color:var(--text)}
+
+/* NAV */
+.navr{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:12px}
+.btn{
+  padding:12px 28px;border-radius:40px;
+  font-family:var(--font-body);font-size:11.5px;font-weight:600;
+  letter-spacing:.3px;cursor:pointer;transition:all .2s;border:none
+}
+.bpri{
+  background:var(--navy);color:#fff;
+  box-shadow:0 2px 8px rgba(10,22,40,0.2)
+}
+.bpri:hover{background:var(--navy-mid);transform:translateY(-1px);box-shadow:0 4px 14px rgba(10,22,40,0.25)}
+.bsec{
+  background:transparent;color:var(--text-secondary);
+  border:1.5px solid var(--border)
+}
+.bsec:hover{border-color:var(--border-strong);color:var(--text)}
+.bgld{
+  background:linear-gradient(135deg,var(--gold),#E8B85A);
+  color:var(--navy);
+  box-shadow:0 2px 10px rgba(196,150,58,0.3)
+}
+.bgld:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(196,150,58,0.4)}
+
+/* TAGS */
+.itags{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.itag{
+  background:rgba(10,22,40,0.05);border:1px solid var(--border);
+  border-radius:20px;padding:5px 14px;
+  font-size:10.5px;font-weight:500;color:var(--text-secondary)
+}
+
+/* SUCCESS SCREEN */
+.sscreen{text-align:center;padding:56px 32px 52px;animation:cardIn .5s ease}
+.sring{
+  width:76px;height:76px;border-radius:50%;
+  border:2px solid var(--green-bd);background:var(--green-lt);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 28px;
+  box-shadow:0 0 0 8px rgba(13,122,85,0.06);
+  animation:ringIn .5s cubic-bezier(.4,0,.2,1) .1s both
+}
+@keyframes ringIn{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.sscreen h2{
+  font-family:var(--font-display);
+  font-size:24px;font-weight:400;color:var(--navy);
+  margin-bottom:12px;letter-spacing:-.2px
+}
+.sscreen p{font-size:12.5px;color:var(--text-secondary);line-height:1.85;max-width:480px;margin:0 auto 8px}
+.sdiv{width:36px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto;border-radius:2px}
+.snote{font-size:11px;color:var(--text-muted)}
+
+/* SUBMITTING OVERLAY */
+.sub-overlay{
+  position:fixed;inset:0;
+  background:rgba(10,22,40,0.65);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;backdrop-filter:blur(6px)
+}
+.sub-box{
+  background:var(--surface);border-radius:20px;
+  padding:44px 40px;text-align:center;
+  max-width:320px;width:90%;
+  box-shadow:var(--shadow-lg);
+  animation:cardIn .25s ease
+}
+.spin{
+  width:40px;height:40px;
+  border:2.5px solid var(--border);
+  border-top-color:var(--navy);
+  border-radius:50%;
+  animation:spin .75s linear infinite;
+  margin:0 auto 20px
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sub-box h3{font-family:var(--font-display);font-size:18px;font-weight:400;color:var(--navy);margin-bottom:6px}
+.sub-box p{font-size:11.5px;color:var(--text-muted)}
+
+@media(max-width:580px){
+  .hdr{padding:36px 24px 32px}.hdr h1{font-size:22px}
+  .card{padding:24px}
+  .aw{flex-wrap:wrap}.ao{min-width:calc(33% - 4px)}
+  .btn{padding:11px 20px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="hdr-bg"></div>
+    <div class="hdr-content">
+      <div class="badge"><span class="badge-dot"></span>ODC Corporate Affairs</div>
+      <h1>Stakeholder Satisfaction<br>&amp; Performance Survey</h1>
+      <p class="hdr-sub">Annual Engagement Assessment &nbsp;&middot;&nbsp; Strictly Confidential</p>
+      <div class="hdr-line"></div>
+    </div>
+  </div>
+
+  <div class="pw" id="PW" style="display:none">
+    <div class="ptop"><span class="plbl" id="PL">Section 1 of 9</span><span class="ppct" id="PP">11%</span></div>
+    <div class="pbar"><div class="pfill" id="PF" style="width:11%"></div></div>
+    <div class="dots" id="DT"></div>
+  </div>
+
+  <div class="vban" id="VB">Please complete all required questions before proceeding to the next section.</div>
+  <div id="SC"></div>
+  <div class="navr" id="NR">
+    <button class="btn bsec" id="BB" onclick="go(-1)" style="display:none">&#8592; Back</button>
+    <div></div>
+    <button class="btn bgld" id="BN" onclick="go(1)">Begin Survey &#8594;</button>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
+import{getFirestore,collection,addDoc,serverTimestamp}from'https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js';
+
+/* ═══════════════════════════════════════════════════════════
+   FIREBASE CONFIG — replace with your own project values
+   after completing setup (see DEPLOY_INSTRUCTIONS.md)
+═══════════════════════════════════════════════════════════ */
+const firebaseConfig = {
+  apiKey: "AIzaSyDE8rif0zr-Amfu84zVSIvSBAPuzSWEBtc",
+  authDomain: "odc-corporate-affairs-fa8c0.firebaseapp.com",
+  projectId: "odc-corporate-affairs-fa8c0",
+  storageBucket: "odc-corporate-affairs-fa8c0.firebasestorage.app",
+  messagingSenderId: "668500085348",
+  appId: "1:668500085348:web:d1b4c4a5a0ed97b046ed71"
+};
+
+const app=initializeApp(FB_CONFIG);
+const db=getFirestore(app);
+
+/* Firestore write — appends a single survey record */
+async function _appendRecord(record){
+  try{
+    await addDoc(collection(db,'odc_responses'),{
+      ...record,
+      _created:serverTimestamp()
+    });
+    return'ok';
+  }catch(e){
+    console.error('Firestore write failed:',e);
+    return'error';
+  }
+}
+
+window._appendRecord=_appendRecord;
+</script>
+<script>
+'use strict';
+
+async function _appendRecord(record){
+  /* delegate to the module-scoped function once Firebase is ready */
+  if(window._appendRecord){return window._appendRecord(record);}
+  /* fallback: retry up to 3s if module hasn't loaded yet */
+  for(let i=0;i<30;i++){
+    await new Promise(r=>setTimeout(r,100));
+    if(window._appendRecord)return window._appendRecord(record);
+  }
+  return'error';
+}
+
+const RL=['','1 — Very Poor','2 — Poor','3 — Satisfactory','4 — Good','5 — Excellent'];
+const AL=['','Strongly Disagree','Disagree','Neutral','Agree','Strongly Agree'];
+const SEC=[
+  {id:'i',t:'intro'},
+  {id:'s1',lb:'Respondent Profile',t:'profile',n:1},
+  {id:'s2',lb:'Overall Performance Assessment',t:'rating',n:2,qs:['Overall effectiveness of ODC Corporate Affairs','Professionalism of the Corporate Affairs team','Responsiveness to stakeholder needs and enquiries','Reliability and consistency of engagement','Value contributed to your relationship with ODC']},
+  {id:'s3',lb:'Stakeholder Engagement & Communication',t:'agree',n:3,qs:['Communication is clear and easy to understand','Information provided is timely and relevant','Engagement channels are effective','Corporate Affairs actively listens to stakeholder concerns','Feedback is handled constructively','Communication is proactive','Engagements are well coordinated']},
+  {id:'s4',lb:'Relationship Management',t:'agree',n:4,qs:['Corporate Affairs builds trust with stakeholders','The department demonstrates transparency and integrity','Stakeholder expectations are managed effectively','Commitments are consistently fulfilled','Stakeholders are treated professionally and respectfully','The department supports long-term partnerships','Stakeholder relationships are handled fairly and inclusively']},
+  {id:'s5',lb:'Strategic Value & Organisational Impact',t:'agree',n:5,qs:["Corporate Affairs positively represents ODC's reputation","The department supports ODC's strategic objectives",'Engagement activities align with stakeholder priorities','Corporate Affairs contributes to positive outcomes and solutions','The department understands stakeholder needs','Corporate Affairs adds measurable strategic value']},
+  {id:'s6',lb:'Service Excellence & Innovation',t:'agree',n:6,qs:['Corporate Affairs demonstrates innovation in engagement','Digital engagement tools are effective','Engagement processes are efficient and user-friendly','The department adapts effectively to changing stakeholder expectations','Corporate Affairs demonstrates continuous improvement']},
+  {id:'s7',lb:'Strengths & Areas for Improvement',t:'open',n:7,qs:['What does ODC Corporate Affairs do particularly well?','What areas should Corporate Affairs improve?','Are there stakeholder needs currently not being met?','Share any particularly positive or negative engagement experiences.']},
+  {id:'s8',lb:'Future Engagement & Recommendations',t:'future',n:8},
+  {id:'s9',lb:'Net Promoter Score',t:'nps',n:9},
+  {id:'s10',lb:'Final Comments',t:'final',n:10}
+];
+let cur=0;const A={};let ep=[];
+
+function upd(){
+  const pw=document.getElementById('PW');
+  if(cur===0){pw.style.display='none';return;}
+  pw.style.display='block';
+  const p=Math.round((cur/(SEC.length-1))*100);
+  document.getElementById('PL').textContent='Section '+cur+' of '+(SEC.length-1);
+  document.getElementById('PP').textContent=p+'%';
+  document.getElementById('PF').style.width=p+'%';
+  const dt=document.getElementById('DT');dt.innerHTML='';
+  for(let i=1;i<SEC.length;i++){const d=document.createElement('div');d.className='dot'+(i<cur?' done':'')+(i===cur?' active':'');dt.appendChild(d);}
+}
+
+function chk(){
+  const s=SEC[cur];let ok=true;
+  if(s.t==='profile'){['s1_cat','s1_eng','s1_int'].forEach(id=>{const el=document.getElementById(id),wb=el.closest('.qb');if(!el.value){ok=false;wb.classList.add('field-err');}else wb.classList.remove('field-err');});}
+  if(s.t==='rating'){const k=s.id;if(!A[k])A[k]={};s.qs.forEach((_,i)=>{const w=document.getElementById('qb-'+k+'-'+i);if(!A[k][i]){ok=false;w.classList.add('field-err');}else w.classList.remove('field-err');});}
+  if(s.t==='agree'){const k=s.id;if(!A[k])A[k]={};s.qs.forEach((_,i)=>{const w=document.getElementById('qb-'+k+'-'+i);if(!A[k][i]){ok=false;w.classList.add('field-err');}else w.classList.remove('field-err');});}
+  if(s.t==='nps'){const w=document.getElementById('nqb');if(A.nps===undefined){ok=false;w.classList.add('field-err');}else w.classList.remove('field-err');}
+  if(!ok){document.getElementById('VB').classList.add('show');const f=document.querySelector('.field-err');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});}
+  else document.getElementById('VB').classList.remove('show');
+  return ok;
+}
+
+function calcScores(){
+  function avg(k,n){if(!A[k])return 0;let s=0,c=0;for(let i=0;i<n;i++){if(A[k][i]){s+=A[k][i];c++;}}return c?s/c:0;}
+  const s2=avg('s2',5),s3=avg('s3',7),s4=avg('s4',7),s5=avg('s5',6),s6=avg('s6',5);
+  const nv=A.nps!==undefined?A.nps:null;
+  const nN=nv!==null?nv/10*5:0;
+  const capi=(s2/5*100*.2)+(s3/5*100*.2)+(s4/5*100*.2)+(s5/5*100*.2)+(s6/5*100*.1)+(nN/5*100*.1);
+  return{capi:Math.round(capi*10)/10,s2:Math.round(s2/5*100*10)/10,s3:Math.round(s3/5*100*10)/10,s4:Math.round(s4/5*100*10)/10,s5:Math.round(s5/5*100*10)/10,s6:Math.round(s6/5*100*10)/10,nps:nv,cat:A['s1_cat']||'Other',eng:A['s1_eng']||'',int_lvl:A['s1_int']||'',rawS2:{...A.s2||{}},rawS3:{...A.s3||{}},rawS4:{...A.s4||{}},rawS5:{...A.s5||{}},rawS6:{...A.s6||{}},openS7:{...A.s7||{}},preferredEngagement:ep.slice(),futureS8:{q1:A.s8&&A.s8.q1||'',q2:A.s8&&A.s8.q2||''},finalComment:A.final||''};
+}
+
+function go(d){
+  if(d===1){if(cur===SEC.length-1){doSubmit();return;}if(!chk())return;}
+  cur=Math.max(0,Math.min(SEC.length-1,cur+d));
+  document.getElementById('VB').classList.remove('show');
+  draw();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function sR(k,i,n,el){if(!A[k])A[k]={};A[k][i]=n;document.querySelectorAll('#rw-'+k+'-'+i+' .ro').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');document.getElementById('qb-'+k+'-'+i).classList.remove('field-err');}
+function sAg(k,i,n,el){if(!A[k])A[k]={};A[k][i]=n;document.querySelectorAll('#aw-'+k+'-'+i+' .ao').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');document.getElementById('qb-'+k+'-'+i).classList.remove('field-err');}
+function sN(n,el){A.nps=n;const c=n<=6?'det':n<=8?'pas':'pro';document.querySelectorAll('#ngrid .npo').forEach(x=>x.classList.remove('sel','det','pas','pro'));el.classList.add('sel',c);document.getElementById('nqb').classList.remove('field-err');}
+function tog(v,el){const i=ep.indexOf(v);if(i>-1){ep.splice(i,1);el.classList.remove('sel');el.querySelector('.cb').innerHTML='';}else{ep.push(v);el.classList.add('sel');el.querySelector('.cb').innerHTML='<svg viewBox="0 0 9 9" class="csvg"><polyline points="1.5,4.5 3.5,7 7.5,2"/></svg>';}A.ep=ep.slice();}
+function dd(id,opts,sv){return`<div class="csel"><select id="${id}" onchange="A['${id}']=this.value;this.closest('.qb').classList.remove('field-err')"><option value="" disabled${!sv?' selected':''}>Select an option</option>${opts.map(o=>`<option value="${o}"${sv===o?' selected':''}>${o}</option>`).join('')}</select></div><div class="em">This field is required.</div>`;}
+
+function draw(){
+  const s=SEC[cur],c=document.getElementById('SC');
+  c.innerHTML='';upd();
+  document.getElementById('BB').style.display=cur>0?'inline-block':'none';
+  const bn=document.getElementById('BN');
+  if(s.t==='intro'){
+    bn.textContent='Begin Survey →';bn.className='btn bgld';
+    c.innerHTML=`<div class="card"><div class="slbl">Welcome</div><div class="stitle">Your Feedback Matters</div><p class="sdesc">ODC Corporate Affairs is committed to strengthening stakeholder relationships through professional engagement, transparency, responsiveness, and strategic collaboration.<br><br>Your feedback is essential in helping us evaluate our effectiveness, improve service delivery, and continuously enhance stakeholder engagement practices.</p><div class="itags"><span class="itag">Confidential</span><span class="itag">7–10 Minutes</span><span class="itag">10 Sections</span><span class="itag">No Account Required</span></div></div>`;
+    return;
+  }
+  bn.textContent=cur===SEC.length-1?'Submit Survey':'Next Section →';
+  bn.className=cur===SEC.length-1?'btn bgld':'btn bpri';
+  if(s.t==='profile'){
+    const cats=['Government / Ministry / Parastatal / SOE','Diamond Industry Partner','Regulatory or Oversight Agency','Community / Civil Society','Media','Academic / Research Institution','Supplier / Service Provider','Other'];
+    const engs=['Less than 1 year','1–3 years','3–5 years','More than 5 years'];
+    const ints=['Frequent','Occasional','Minimal'];
+    c.innerHTML=`<div class="card"><div class="slbl">Section 1</div><div class="stitle">${s.lb}</div><div class="sdesc">Please complete all fields to ensure your responses are accurately attributed.</div><div class="qb" id="qb-s1-cat"><div class="qt"><span class="qn">1.</span>Stakeholder Category<span class="req-star">*</span></div>${dd('s1_cat',cats,A['s1_cat'])}</div><div class="qb" id="qb-s1-eng"><div class="qt"><span class="qn">2.</span>Length of Engagement with ODC<span class="req-star">*</span></div>${dd('s1_eng',engs,A['s1_eng'])}</div><div class="qb" id="qb-s1-int"><div class="qt"><span class="qn">3.</span>Level of Interaction with Corporate Affairs<span class="req-star">*</span></div>${dd('s1_int',ints,A['s1_int'])}</div></div>`;
+    return;
+  }
+  if(s.t==='rating'){
+    const k=s.id;if(!A[k])A[k]={};
+    let h=`<div class="card"><div class="slbl">Section ${s.n}</div><div class="stitle">${s.lb}</div><div class="sdesc">Rate each item on a scale of 1 to 5. All questions are required.</div>`;
+    s.qs.forEach((q,i)=>{
+      h+=`<div class="qb" id="qb-${k}-${i}"><div class="qt"><span class="qn">${i+1}.</span>${q}<span class="req-star">*</span></div><div class="rw" id="rw-${k}-${i}">`;
+      for(let n=1;n<=5;n++){const sl=A[k][i]===n?' sel':'';h+=`<div class="ro${sl}" onclick="sR('${k}',${i},${n},this)"><div class="rnum">${n}</div><div class="rlbl">${RL[n]}</div></div>`;}
+      h+=`</div><div class="r-scale"><span class="rs-lbl">Very Poor</span><span class="rs-lbl">Excellent</span></div><div class="em">Please select a rating.</div></div><div class="divl"></div>`;
+    });
+    c.innerHTML=h+`</div>`;return;
+  }
+  if(s.t==='agree'){
+    const k=s.id;if(!A[k])A[k]={};
+    let h=`<div class="card"><div class="slbl">Section ${s.n}</div><div class="stitle">${s.lb}</div><div class="sdesc">Rate your level of agreement with each statement. All questions are required.</div>`;
+    s.qs.forEach((q,i)=>{
+      h+=`<div class="qb" id="qb-${k}-${i}"><div class="qt"><span class="qn">${i+1}.</span>${q}<span class="req-star">*</span></div><div class="aw" id="aw-${k}-${i}">`;
+      for(let n=1;n<=5;n++){const sl=A[k][i]===n?' sel':'';h+=`<div class="ao${sl}" onclick="sAg('${k}',${i},${n},this)"><div class="anum">${n}</div><div class="albl">${AL[n]}</div></div>`;}
+      h+=`</div><div class="em">Please select a response.</div></div><div class="divl"></div>`;
+    });
+    c.innerHTML=h+`</div>`;return;
+  }
+  if(s.t==='open'){
+    const k=s.id;if(!A[k])A[k]={};
+    let h=`<div class="card"><div class="slbl">Section ${s.n}</div><div class="stitle">${s.lb}</div><div class="sdesc">Please share your thoughts. All fields are optional but greatly valued.</div>`;
+    s.qs.forEach((q,i)=>{h+=`<div class="qb"><div class="qt"><span class="qn">${i+1}.</span>${q}</div><textarea placeholder="Your response…" onchange="if(!A['${k}'])A['${k}']={};A['${k}'][${i}]=this.value">${(A[k]&&A[k][i])||''}</textarea></div>`;});
+    c.innerHTML=h+`</div>`;return;
+  }
+  if(s.t==='future'){
+    const ms=['Stakeholder forums','Executive briefings','Newsletters','Community engagements','One-on-one meetings','Webinars','Social media updates','Industry roundtables','Other'];
+    if(!A.s8)A.s8={};
+    let h=`<div class="card"><div class="slbl">Section ${s.n}</div><div class="stitle">${s.lb}</div><div class="sdesc">Help us understand how we can best serve your needs. All fields optional.</div><div class="qb"><div class="qt"><span class="qn">1.</span>How can Corporate Affairs improve engagement with your organisation?</div><textarea placeholder="Your suggestions…" onchange="A.s8.q1=this.value">${A.s8.q1||''}</textarea></div><div class="qb"><div class="qt"><span class="qn">2.</span>What additional support or information would you value?</div><textarea placeholder="Your response…" onchange="A.s8.q2=this.value">${A.s8.q2||''}</textarea></div><div class="qb"><div class="qt"><span class="qn">3.</span>Preferred engagement methods (select all that apply)</div><div class="cgrp">`;
+    ms.forEach(m=>{const sl=ep.includes(m);h+=`<div class="ci${sl?' sel':''}" onclick="tog('${m}',this)"><div class="cb">${sl?'<svg viewBox="0 0 9 9" class="csvg"><polyline points="1.5,4.5 3.5,7 7.5,2"/></svg>':''}</div><span class="clbl">${m}</span></div>`;});
+    c.innerHTML=h+`</div></div></div>`;return;
+  }
+  if(s.t==='nps'){
+    let h=`<div class="card"><div class="slbl">Section ${s.n}</div><div class="stitle">${s.lb}</div><div class="sdesc">How likely are you to recommend engagement with ODC Corporate Affairs to other stakeholders?</div><div class="qb" id="nqb"><div class="ngrid" id="ngrid">`;
+    for(let n=0;n<=10;n++){const c2=n<=6?'det':n<=8?'pas':'pro';const sl=A.nps===n?' sel '+c2:'';const lbl=n===0?'Not at all likely':n===10?'Extremely likely':'';h+=`<div class="npo${sl}" onclick="sN(${n},this)"><div class="nnum">${n}</div>${lbl?`<div class="nlbl">${lbl}</div>`:''}</div>`;}
+    c.innerHTML=h+`</div><div class="em">Please select a score.</div><div class="nkey"><div class="nk"><div class="kdot" style="background:#C0392B"></div>0–6 Detractors</div><div class="nk"><div class="kdot" style="background:#B07D2A"></div>7–8 Passives</div><div class="nk"><div class="kdot" style="background:#0D7A55"></div>9–10 Promoters</div></div></div></div>`;
+    return;
+  }
+  if(s.t==='final'){
+    c.innerHTML=`<div class="card"><div class="slbl">Section ${s.n}</div><div class="stitle">${s.lb}</div><div class="sdesc">Please share any additional comments, observations, or recommendations. Optional.</div><div class="qb"><textarea placeholder="Your final comments…" style="min-height:120px" onchange="A.final=this.value">${A.final||''}</textarea></div></div>`;
+    return;
+  }
+}
+
+async function doSubmit(){
+  const overlay=document.createElement('div');
+  overlay.className='sub-overlay';
+  overlay.innerHTML=`<div class="sub-box"><div class="spin"></div><h3>Submitting your response</h3><p>Please wait a moment…</p></div>`;
+  document.body.appendChild(overlay);
+  document.getElementById('NR').style.display='none';
+  document.getElementById('PW').style.display='none';
+  document.getElementById('VB').classList.remove('show');
+
+  const id='ODC-'+Date.now()+'-'+Math.random().toString(36).substr(2,7).toUpperCase();
+  const record={id,timestamp:new Date().toISOString(),scores:calcScores()};
+  const result=await _appendRecord(record);
+  document.body.removeChild(overlay);
+  if(result==='error'){
+    document.getElementById('SC').innerHTML=`<div class="card"><div class="sscreen"><div class="sring" style="border-color:rgba(176,48,37,0.2);background:#FEF1EF"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#B03025" stroke-width="1.5"/><line x1="11" y1="11" x2="21" y2="21" stroke="#B03025" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="11" x2="11" y2="21" stroke="#B03025" stroke-width="2" stroke-linecap="round"/></svg></div><h2>Submission Failed</h2><p>We could not save your response — please check your internet connection and try again. Your answers have not been lost; press Back and resubmit.</p></div></div>`;
+    document.getElementById('NR').style.display='flex';
+    document.getElementById('BN').textContent='Submit Survey';document.getElementById('BN').className='btn bgld';
+    document.getElementById('BB').style.display='inline-block';
+    return;
+  }
+
+  document.getElementById('SC').innerHTML=`
+    <div class="card">
+      <div class="sscreen">
+        <div class="sring">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="#0D7A55" stroke-width="1.5"/>
+            <polyline points="9,16 14,21 23,11" stroke="#0D7A55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2>Thank You for Your Feedback</h2>
+        <p>Your responses have been submitted successfully. We appreciate your time, insights, and contribution toward strengthening stakeholder engagement at ODC Corporate Affairs.</p>
+        <div class="sdiv"></div>
+        <p class="snote">All responses are treated with strict confidentiality and used solely for organisational improvement and strategic planning purposes.</p>
+      </div>
+    </div>`;
+}
+draw();
+</script>
+</body>
+</html>
