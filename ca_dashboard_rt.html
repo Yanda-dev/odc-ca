@@ -770,13 +770,15 @@ async function _all(){return _cache.slice();}
 async function _save(){}  // no-op: writes go through Firestore
 
 async function deleteRecord(id){
+  /* FIX D6: do NOT mutate _cache locally. The Firestore onSnapshot will fire
+     within ~200ms and update _cache authoritatively, eliminating the race condition
+     where the deleted record reappeared briefly. */
   if(window.FB&&window.FB.del)await window.FB.del([id]);
-  _cache=_cache.filter(r=>r.id!==id);
   return _cache.length;
 }
 async function deleteRecords(ids){
+  /* FIX D6: same — no local cache mutation; snapshot is the source of truth. */
   if(window.FB&&window.FB.del)await window.FB.del(ids);
-  const s=new Set(ids);_cache=_cache.filter(r=>!s.has(r.id));
   return _cache.length;
 }
 
@@ -784,9 +786,10 @@ async function deleteRecords(ids){
 window._onRealtimeData=function(records){
   const prev=_cache.length;
   _cache=records;
+  /* FIX D3: toast removed here — renderDash fires it once, preventing duplicates.
+     FIX D4: badge set to 'ok' immediately; renderDash must NOT set 'ing' on its own. */
   if(prev>0&&records.length>prev){
     logActivity('submit',`${records.length-prev} new response${records.length-prev===1?'':'s'} received`,'submit','system');
-    toast(`${records.length-prev} new response${records.length-prev===1?'':'s'} — dashboard updated in real-time`,'info');
   }
   setSyncBadge('ok','Live · Synced');
   renderDash();
@@ -890,7 +893,8 @@ async function exportCSV(){
    RENDER ANALYTICS
 ════════════════════════════════════════════════════════════ */
 async function renderDash(){
-  setSyncBadge('ing','Syncing…');
+  /* FIX D4: do NOT set 'ing' here — the listener manages the badge.
+     Calling setSyncBadge('ing') on every render caused visible flicker. */
   const allRecs=await _all();
   document.getElementById('resp-nav-badge').textContent=allRecs.length;
   const recs=filterRecs(curF,allRecs);
@@ -904,7 +908,7 @@ async function renderDash(){
 
   if(!recs.length){
     c.innerHTML=`<div class="empty-state"><div class="empty-icon">📊</div><h2>${allRecs.length?'No Data for this Segment':'Awaiting Survey Responses'}</h2><p>${allRecs.length?'Switch to a different segment or "All responses" to view existing data.':'Share the survey link with stakeholders — responses will appear here automatically as they are submitted.'}</p></div>`;
-    setSyncBadge('ok','Synced');return;
+    setSyncBadge('ok','Live · Synced');return;
   }
 
   const trend=computeTrend(recs);
@@ -1028,9 +1032,10 @@ async function renderDash(){
 
   document.querySelectorAll('.kpi-card').forEach(el=>{el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');});
   const newCount=allRecs.length;
-  if(lastCount>0&&newCount>lastCount)toast(`${newCount-lastCount} new response${newCount-lastCount===1?'':'s'} — total now ${newCount}`,'ok');
+  /* FIX D3: this is now the ONLY toast for new responses (_onRealtimeData no longer shows one) */
+  if(lastCount>0&&newCount>lastCount)toast(`${newCount-lastCount} new response${newCount-lastCount===1?'':'s'} received — dashboard updated`,'info');
   lastCount=newCount;
-  setSyncBadge('ok','Synced');
+  setSyncBadge('ok','Live · Synced');
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1121,10 +1126,12 @@ async function init(){
     const iv=setInterval(()=>{
       waited+=200;
       if(window.FB&&window.FB.startListener){clearInterval(iv);window.FB.startListener();}
-      else if(waited>4000){clearInterval(iv);setSyncBadge('err','Offline — check config');}
+      /* FIX D7: extended timeout 4s→8s for slow connections */
+      else if(waited>8000){clearInterval(iv);setSyncBadge('err','Offline — check config');}
     },200);
   }
 }
+</script>
 <!-- Firebase module — real-time Firestore listener -->
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js';
@@ -1134,13 +1141,14 @@ import{getFirestore,collection,query,orderBy,onSnapshot,doc,deleteDoc}from'https
    FIREBASE CONFIG — replace with your own project values
    after completing setup (see DEPLOY_INSTRUCTIONS.md)
 ═══════════════════════════════════════════════════════════ */
-const firebaseConfig = {
-  apiKey: "AIzaSyDE8rif0zr-Amfu84zVSIvSBAPuzSWEBtc",
-  authDomain: "odc-corporate-affairs-fa8c0.firebaseapp.com",
-  projectId: "odc-corporate-affairs-fa8c0",
-  storageBucket: "odc-corporate-affairs-fa8c0.firebasestorage.app",
-  messagingSenderId: "668500085348",
-  appId: "1:668500085348:web:d1b4c4a5a0ed97b046ed71"
+/* FIX D1: variable name aligned — was `firebaseConfig`, must match initializeApp call */
+const FB_CONFIG={
+  apiKey:"AIzaSyDE8rif0zr-Amfu84zVSIvSBAPuzSWEBtc",
+  authDomain:"odc-corporate-affairs-fa8c0.firebaseapp.com",
+  projectId:"odc-corporate-affairs-fa8c0",
+  storageBucket:"odc-corporate-affairs-fa8c0.firebasestorage.app",
+  messagingSenderId:"668500085348",
+  appId:"1:668500085348:web:d1b4c4a5a0ed97b046ed71"
 };
 
 const app=initializeApp(FB_CONFIG);
